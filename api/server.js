@@ -11,10 +11,6 @@ const app = express();
 app.use(bodyParser.json())
 app.use(cors());
 app.use(morgan('dev'))
-// app.use('/translate', (req, res, next) => {
-//     const { name, password, text, language} = req.body;
-//     next() 
-// })
 
 //grab request parameters 
 
