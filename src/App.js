@@ -8,8 +8,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Recognition />
-        {/* <Synthesis /> */}
+        <Recognition/>
         {/* <SignIn /> */}
         {/* <SignUp /> */}
       </div>

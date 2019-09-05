@@ -1,8 +1,13 @@
 import React, { Component }  from 'react';
-import translate from '../../translate'
+import translate from '../../translate';
+import speak from '../../speak'
+
+// text to speech 
+
+
+//speech to text 
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
 const recognition = new SpeechRecognition()
-
 recognition.continous = true
 recognition.interimResults = true
 // recognition.lang = 'en-US'
@@ -17,7 +22,6 @@ class Recognition extends Component {
             output: '',
             language: 'en-es'
         })
-
     }
 
     dictate = () => {
@@ -48,8 +52,12 @@ class Recognition extends Component {
     }
 
     onTranslate = () => {
-        translate(this.state.input, this.state.language)
-        .then(response => this.setState({output: response[0].translation}))
+        const { input, language } = this.state;
+        translate(input, language)
+        .then(response => {
+            this.setState({output: response[0].translation})
+            setTimeout(speak(response[0].translation), 2000)
+        })
     }
 
     render () {
