@@ -5,8 +5,8 @@ class SignUp extends Component {
   constructor(props) {
       super();
       this.state= {
-        signInEmail:'',
-        signInPassword: ''
+        name:'',
+        password: ''
       }
     }
 
