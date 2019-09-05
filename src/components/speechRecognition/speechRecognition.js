@@ -17,7 +17,7 @@ class Recognition extends Component {
             output: '',
             language: 'en-es'
         })
-        // this.translate = this.translate.bind(this)
+
     }
 
     dictate = () => {
