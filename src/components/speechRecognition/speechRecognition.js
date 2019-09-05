@@ -57,7 +57,7 @@ class Recognition extends Component {
         .then(response => {
             this.setState({output: response[0].translation})
             setTimeout(speak(response[0].translation), 2000)
-        })
+        }).catch(err => console.log(err))
     }
 
     render () {
