@@ -1,5 +1,5 @@
 import React, { Component }  from 'react';
-
+import translate from '../../translate'
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
 const recognition = new SpeechRecognition()
 
@@ -9,15 +9,15 @@ recognition.interimResults = true
 
 
 class Recognition extends Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = ({
             listening: false,
             input: '',
             output: '',
             language: 'en-es'
         })
-        this.translate = this.translate.bind(this)
+        // this.translate = this.translate.bind(this)
     }
 
     dictate = () => {
@@ -47,27 +47,10 @@ class Recognition extends Component {
         }
     }
 
-    translate()  {
-        try {
-            fetch('http://localhost:4000/translate', {
-                method: 'post',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({
-                    text: this.state.input,
-                    language: this.state.language
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('output : ', data)
-                this.setState({output: data[0].translation})
-            })
-
-
-        } catch (err) {
-            console.log(err);
-        } 
-    }   
+    onTranslate = () => {
+        translate(this.state.input, this.state.language)
+        .then(response => this.setState({output: response[0].translation}))
+    }
 
     render () {
         return (
@@ -77,7 +60,7 @@ class Recognition extends Component {
                     <p> {this.state.output}</p>
                 </div>
                 <button onClick={this.dictate} className="btn-primary" disabled={this.state.listening}>Listen</button>
-                <button onClick={this.translate} className="btn-primary" >Translate</button>
+                <button onClick={this.onTranslate} className="btn-primary" >Translate</button>
           </div>
         )
     }
