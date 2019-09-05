@@ -16,7 +16,7 @@ app.use(morgan('dev'))
 
 //helper functions
 function authenticateUser (name, password) {
-    users.filter(user => user.name === name && user.password === password)
+    return users.filter(user => user.name === name && user.password === password)
 } 
  
 // translate interface   
@@ -57,6 +57,8 @@ app.post('/register', (req, res) => {
     users.push({
         name: req.body.name,
         password: req.body.password,
+        admin: false,
+        signInCount: 0,
         joined: new Date()
     });
     res.json(users[users.length - 1]);
@@ -66,11 +68,13 @@ app.post('/signin', (req, res) => {
     const { name, password } = req.body;
     const requestedUser = authenticateUser(name, password);
     if (requestedUser.length) {
+        requestedUser[0].signInCount ++
         res.json(requestedUser[0]);
     } else {
         res.status(400).json('invalid credentials')
     }    
 });
+
 
 const PORT = process.env.port || 4000 
 app.listen(PORT, () => {
