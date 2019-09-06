@@ -1,6 +1,6 @@
 import React, { Component }  from 'react';
-import translate from '../../translate';
-import speak from '../../speak'
+import translate from '../translate';
+import speak from '../speak'
 
 
 //speech to text 
@@ -59,7 +59,7 @@ class Recognition extends Component {
                 }
                 else {
                     interimTranscript += transcript;
-                    console.log(interimTranscript)
+                    console.log('interimTranscript', interimTranscript)
                 }
             }
         }

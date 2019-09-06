@@ -1,5 +1,8 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+# custom
+/myarchive.txt
+
 # dependencies
 /node_modules
 /api/node_modules
