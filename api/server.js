@@ -18,6 +18,10 @@ app.use(morgan('dev'))
 function authenticateUser (name, password) {
     return users.filter(user => user.name === name && user.password === password)
 } 
+
+function getUserIndexByName (name) {
+    return users.findIndex(user => user.name === name)
+}
  
 // translate interface   
 const LanguageTranslatorV3 = require('ibm-watson/language-translator/v3');
@@ -65,7 +69,7 @@ app.post('/register', (req, res) => {
 });
 
 app.post('/signin', (req, res) => {
-    const { name, password } = req.body;
+    const { name, password } = req.body;  
     const requestedUser = authenticateUser(name, password);
     if (requestedUser.length) {
         requestedUser[0].signInCount ++
@@ -75,6 +79,16 @@ app.post('/signin', (req, res) => {
     }    
 });
 
+app.delete('/delete/:name', (req, res) => {
+    const userName = req.params.name
+    const userIndex = getUserIndexByName(userName)
+    if (userIndex !== 0 && users[userIndex].admin !== true) {
+        users.splice(userIndex, 1);
+        res.sendStatus(204)
+    }   else {
+        res.status(404).send('user not valid or user is an admin')
+    }
+})
 
 const PORT = process.env.port || 4000 
 app.listen(PORT, () => {

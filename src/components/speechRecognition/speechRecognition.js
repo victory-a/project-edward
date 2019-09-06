@@ -2,8 +2,6 @@ import React, { Component }  from 'react';
 import translate from '../../translate';
 import speak from '../../speak'
 
-// text to speech 
-
 
 //speech to text 
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
@@ -24,35 +22,52 @@ class Recognition extends Component {
         })
     }
 
-    dictate = () => {
-        this.setState({listening: true})
-    
-        let interimResults
-        recognition.start();
-        recognition.onresult = (event) => {
-            const speechToText = Array.from(event.results)
-            .map(result => result[0])
-            .map(result => result.transcript)
-            .join(' '); 
-            console.log(speechToText)
-            interimResults = speechToText + ''
+    toggleListen = () => {
+        this.setState({
+          listening: !this.state.listening
+        },this.dictate)
+    }
 
-            if (event.results[0].isFinal) {
-                this.setState({
-                    input: interimResults,
-                    listening: false
-                })
+    dictate = () => {
+        console.log('listening', this.state.listening)
+        if (this.state.listening) {
+            recognition.start();
+            recognition.onend = () => {
+                console.log('continue listening', this.state.listening)   
+                recognition.start();
+            }
+        } else {
+            recognition.stop();
+            recognition.onend = () => {
+                console.log("Stopped listening per click")
             }
         }
-        recognition.onerror = (event) =>{
-            this.setState({
-                error: event.error
-            })
+
+        recognition.onstart = () => {
+            console.log("Listening!")
+        }
+
+        let finalTranscript = '';
+        recognition.onresult = (event) => {
+            let interimTranscript = '';
+
+            for (let i = event.resultIndex; i < event.results.length; i++) {
+                const transcript = event.results[i][0].transcript;
+                if (event.results[i].isFinal) {
+                    finalTranscript += transcript + ' ';
+                    this.setState({input: finalTranscript});
+                }
+                else {
+                    interimTranscript += transcript;
+                    console.log(interimTranscript)
+                }
+            }
         }
     }
 
     onTranslate = () => {
         const { input, language } = this.state;
+        console.log('input', this.state.input)
         translate(input, language)
         .then(response => {
             this.setState({output: response[0].translation})
@@ -67,7 +82,7 @@ class Recognition extends Component {
                     <p> {this.state.input}</p>
                     <p> {this.state.output}</p>
                 </div>
-                <button onClick={this.dictate} className="btn-primary" disabled={this.state.listening}>Listen</button>
+                <button onClick={this.toggleListen} className="btn-primary">{!this.state.listening? 'Start': 'Stop'}</button>
                 <button onClick={this.onTranslate} className="btn-primary" >Translate</button>
           </div>
         )
