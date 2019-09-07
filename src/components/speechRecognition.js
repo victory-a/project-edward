@@ -55,6 +55,7 @@ class Recognition extends Component {
                 const transcript = event.results[i][0].transcript;
                 if (event.results[i].isFinal) {
                     finalTranscript += transcript + ' ';
+                    console.log('recognized language', recognition.lang)
                     this.setState({input: finalTranscript});
                 }
                 else {

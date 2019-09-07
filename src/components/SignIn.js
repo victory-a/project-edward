@@ -1,9 +1,8 @@
 import React from 'react';
 
 const containerStyle = {
-    width: "55%",
-    marginTop: "15%",
-    borderRadius: "0.8px",
+    width: "35%",
+    marginTop: "5%",
     color: "#5323a0"
 }
 const buttonStyle = {
@@ -15,7 +14,7 @@ const buttonStyle = {
 
 const SignIn = () => {  
     return ( 
-        <div className="container shadow p-3 mb-5 bg-white rounded" style={containerStyle}>
+        <div className="container rounded shadow p-3 mb-5 bg-white rounded" style={containerStyle}>
             <h2 className="text-center m-3">Project Edward</h2>
             <div className="form-group">
                 <label className="mt-3" for="username">Username</label>

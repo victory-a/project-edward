@@ -48,7 +48,7 @@ async function translate (req, res, textToBeTranslated, targetLanguage) {
 }
 
 //route handlers
-app.get('/', (req, res) => {
+app.get('/users', (req, res) => {
     res.send(users)
 })
 
