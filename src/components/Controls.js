@@ -19,18 +19,25 @@ const languages = languagesArray.map((language, index) =>
 class Controls extends Component {
     constructor(props) {
         super(props)
-        this.state = {
+        this.state = ({
             listening: false
-        }
+        })
     }
 
     toggleListen = (e) => {
         this.setState({
           listening: !this.state.listening
         })
-        console.log(e.target)
+        // console.log("clicked", e.target)
+        if (this.state.listening) {
+            e.target.classList.add("btn-danger")
+            e.target.classList.remove("btn-primary")
+        } else {
+            e.target.classList.add("btn-primary")
+            e.target.classList.remove("btn-danger")
+        }
     }
-
+    
     render () {
         const { onLanguageSelect, selectedLanguage } = this.props
         return (
@@ -44,12 +51,12 @@ class Controls extends Component {
                     </select>
                 </div>
                 <div className="buttons text-center">
-                    <button type="submit" className="btn m-3 btn-success" style={buttonStyle} onClick={this.togglelisten}>
+                    <button type="submit" className="btn m-3 btn-danger" style={buttonStyle} onClick={this.toggleListen}>
                         {
-                            this.state.listening? 'Stop' : 'Start'
+                            this.state.listening? 'Stop' : 'Record'
                         }
                     </button>
-                    <button type="submit" className="btn m-3 btn-primary" style={buttonStyle}>Translate</button>
+                    <button type="submit" className="btn m-3 btn-success" style={buttonStyle}>Translate</button>
                 </div>
             </>
         )
