@@ -3,7 +3,7 @@ import React from 'react';
 const containerStyle = {
     width: "55%",
     marginTop: "15%",
-    borderRadius: "0.8px",
+
     color: "#5323a0"
 }
 const buttonStyle = {
@@ -13,7 +13,7 @@ const buttonStyle = {
     padding: "0.6em"
 }
 
-const SignIn = () => {  
+const Register = () => {  
     return ( 
         <div className="container shadow p-3 mb-5 bg-white rounded" style={containerStyle}>
             <h2 className="text-center m-3">Project Edward</h2>
@@ -25,12 +25,16 @@ const SignIn = () => {
                 <label className="mt-2" for="password">Password</label>
                 <input type="password" className="form-control" placeholder="Password" />
             </div>
-            <p >new here?  <a href="#" >Register</a></p>
+            <div className="form-group">
+                <label className="mt-2" for="password">Confirm Password</label>
+                <input type="password" className="form-control" placeholder="Password" />
+            </div>
+            <p >not new?  <a href="#" >Sign in</a></p>
             <div className="text-center">
-            <button type="submit" className="btn m-3" style={buttonStyle}>Sign In</button>
+            <button type="submit" className="btn m-3" style={buttonStyle}>Submit</button>
             </div>
         </div> 
     )
 }
 
-export default SignIn;
+export default Register;
