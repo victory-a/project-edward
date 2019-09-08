@@ -1,6 +1,9 @@
 export const languagesObject = {
     Arabic : "en-ar",
+    Chinese: "en-zh-TW",
     Czech : "en-cs",
+    Danish : "en-da",
+    Dutch : "en-nl",
     German : "en-de",
     Greek : "en-el",
     Spanish : "en-es",
@@ -10,13 +13,12 @@ export const languagesObject = {
     Italian : "en-it",
     Japanese : "en-ja",
     Korean : "en-ko",
-    Dutch : "en-nl",
     Portuguese : "en-pt",
     Russian : "en-ru",
     Swedish : "en-sv",
-    Turkish : "en-zh"
+    Turkish : "en-tr",
 }
 
 
-export const languagesArray = [ "Arabic", "Czech", "German", "Greek", "Spanish", "French", "Hebrew", "Hindi", "Italian", "Japanese", "Korean", "Dutch", "Portuguese", "Russian", "Swedish", "Turkish" ]
+export const languagesArray = [ "Arabic", "Chinese", "Czech", "Danish", "German", "Greek", "Spanish", "French", "Hebrew", "Hindi", "Italian", "Japanese", "Korean", "Dutch", "Portuguese", "Russian", "Swedish", "Turkish" ]
 
