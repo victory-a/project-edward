@@ -2,17 +2,17 @@ import React, { Component } from 'react';
 import Register from './components/Register';
 import SignIn from './components/SignIn';
 import Recognition from './components/speechRecognition';
-import Main from './components/Main'
+import Home from './components/Home'
 
 class App extends Component {
 
     render() {
         return (
             <div>
-                {/* <Recognition/> */}
+                <Recognition/>
                 {/* <SignIn /> */}
                 {/* <Register /> */}
-                <Main />
+                {/* <Home /> */}
             </div>
         )
     }

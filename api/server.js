@@ -59,8 +59,7 @@ app.get('/users', (req, res) => {
 })
 
 app.post('/translate', (req, res) => {
-    const { name, text, language,} = req.body;
-    increaseTranslationCount(name);
+    const {text, language,} = req.body;
     translate(req, res, text, language);
 });
 
@@ -100,4 +99,3 @@ const PORT = process.env.port || 4000
 app.listen(PORT, () => {
     console.log(`app is running on port ${PORT}`);
 });
-

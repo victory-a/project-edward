@@ -1,5 +1,5 @@
 import React, { Component }  from 'react';
-import translate from '../translate';
+import translate from '../helper_functions/translate';
 import speak from '../speak'
 
 
@@ -67,9 +67,9 @@ class Recognition extends Component {
     }
 
     onTranslate = () => {
-        const { name, input, language } = this.state;
+        const {input, language } = this.state;
         console.log('input', this.state.input)
-        translate(name, input, language)
+        translate(input, language)
         .then(response => {
             this.setState({output: response[0].translation})
             setTimeout(speak(response[0].translation), 2000)
