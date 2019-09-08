@@ -18,7 +18,7 @@ class Recognition extends Component {
             listening: false,
             input: '',
             output: '',
-            language: 'en-es'
+            language: 'en-es',
         })
     }
 
@@ -67,9 +67,9 @@ class Recognition extends Component {
     }
 
     onTranslate = () => {
-        const { input, language } = this.state;
+        const { name, input, language } = this.state;
         console.log('input', this.state.input)
-        translate(input, language)
+        translate(name, input, language)
         .then(response => {
             this.setState({output: response[0].translation})
             setTimeout(speak(response[0].translation), 2000)

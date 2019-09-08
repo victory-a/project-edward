@@ -17,16 +17,16 @@ const Register = () => {
         <div className="container rounded shadow p-3 mb-5 bg-white rounded" style={containerStyle}>
             <h2 className="text-center m-3">Project Edward</h2>
             <div className="form-group">
-                <label className="mt-3" for="username">Username</label>
-                <input type="text" className="form-control" placeholder="Enter name" />
+                <label className="mt-3" htmlFor="username">Username</label>
+                <input type="text" className="form-control" placeholder="Enter name" required />
             </div>
             <div className="form-group">
-                <label className="mt-2" for="password">Password</label>
-                <input type="password" className="form-control" placeholder="Password" />
+                <label className="mt-2" htmlFor="password">Password</label>
+                <input type="password" className="form-control" placeholder="Password" required/>
             </div>
             <div className="form-group">
-                <label className="mt-2" for="password">Confirm Password</label>
-                <input type="password" className="form-control" placeholder="Password" />
+                <label className="mt-2" htmlFor="password">Confirm Password</label>
+                <input type="password" className="form-control" placeholder="Password" required/>
             </div>
             <p >not new?  <a href="#" >Sign in</a></p>
             <div className="text-center">

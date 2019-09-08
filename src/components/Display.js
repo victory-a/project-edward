@@ -1,10 +1,21 @@
 import React from 'react';
 
-const Display = () => {
+const Display = ({ input, output, onChange}) => {
     return (
         <>
-            <div className="form-group border border-primary">
-                <textarea className="form-control" id="exampleFormControlTextarea3" rows="9"></textarea>
+            <div className="form-group">
+                <textarea 
+                    className="form-control mt-2 mb-2" 
+                    rows="4"  
+                    defaultValue={input}
+                    read="true">        
+                </textarea>
+                <textarea 
+                    className="form-control mt-2 mb-2" 
+                    rows="4"  
+                    defaultValue={output}
+                    read="true">        
+                </textarea>
             </div> 
         </>
     )
