@@ -16,53 +16,28 @@ const languages = languagesArray.map((language, index) =>
         </option>
 )
 
-class Controls extends Component {
-    constructor(props) {
-        super(props)
-        this.state = ({
-            listening: false
-        })
-    }
-
-    toggleListen = (e) => {
-        this.setState({
-          listening: !this.state.listening
-        })
-        // console.log("clicked", e.target)
-        if (this.state.listening) {
-            e.target.classList.add("btn-danger")
-            e.target.classList.remove("btn-primary")
-        } else {
-            e.target.classList.add("btn-primary")
-            e.target.classList.remove("btn-danger")
-        }
-    }
-    
-    render () {
-        const { onLanguageSelect, selectedLanguage } = this.props
-        return (
-            <>
-                <div className="select_language">
-                    <select 
-                        value={selectedLanguage}
-                        className="custom-select" 
-                        onChange={onLanguageSelect}>
-                            {languages}
-                    </select>
-                </div>
-                <div className="buttons text-center">
-                    <button type="submit" className="btn m-3 btn-danger" style={buttonStyle} onClick={this.toggleListen}>
-                        {
-                            this.state.listening? 'Stop' : 'Record'
-                        }
-                    </button>
-                    <button type="submit" className="btn m-3 btn-success" style={buttonStyle}>Translate</button>
-                </div>
-            </>
-        )
-    } 
-
+const Controls = ({ onLanguageSelect, selectedLanguage, toggleListen, isListening}) => {
+    return (
+        <>
+            <div className="select_language">
+                <select
+                    value={selectedLanguage}
+                    className="custom-select"
+                    onChange={onLanguageSelect}>
+                    {languages}
+                </select>
+            </div>
+            <div className="buttons text-center">
+                <button type="submit" className="btn m-3 btn-danger" style={buttonStyle} onClick={toggleListen}>
+                    {
+                        isListening ? 'Stop' : 'Record'
+                    }
+                </button>
+                <button type="submit" className="btn m-3 btn-success" style={buttonStyle}>Translate</button>
+            </div>
+        </>
+    )
 
 }
 
-export default Controls
+export default Controls;

@@ -16,11 +16,17 @@ app.use(morgan('dev'))
 
 //helper functions
 function authenticateUser (name, password) {
-    return users.filter(user => user.name === name && user.password === password)
+    return users.filter(user => user.name.toLowerCase() === name.toLowerCase() && user.password === password)
 } 
 
 function getUserIndexByName (name) {
     return users.findIndex(user => user.name === name)
+}
+
+function increaseTranslationCount (name) {
+    const user = users.filter(user => user.name.toLowerCase() === name.toLowerCase())
+    user[0].translationCount++
+
 }
  
 // translate interface   
@@ -53,7 +59,8 @@ app.get('/users', (req, res) => {
 })
 
 app.post('/translate', (req, res) => {
-    const { text, language } = req.body
+    const { name, text, language,} = req.body;
+    increaseTranslationCount(name);
     translate(req, res, text, language);
 });
 
@@ -62,7 +69,7 @@ app.post('/register', (req, res) => {
         name: req.body.name,
         password: req.body.password,
         admin: false,
-        signInCount: 0,
+        translationCount: 0,
         joined: new Date()
     });
     res.json(users[users.length - 1]);
@@ -72,7 +79,6 @@ app.post('/signin', (req, res) => {
     const { name, password } = req.body;  
     const requestedUser = authenticateUser(name, password);
     if (requestedUser.length) {
-        requestedUser[0].signInCount ++
         res.json(requestedUser[0]);
     } else {
         res.status(400).json('invalid credentials')
