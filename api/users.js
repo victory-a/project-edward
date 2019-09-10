@@ -7,7 +7,7 @@ const users = [
         joined: new Date(),
     },
     {
-        name: 'david',
+        name: 'princess',
         password: "rose",
         admin: false,
         translationCount: 0,

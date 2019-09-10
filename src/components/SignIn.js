@@ -14,6 +14,9 @@ const buttonStyle = {
 
 
 class SignIn extends Component {
+    constructor(props) {
+        super(props)
+    }
     
     onChange = (event) => {
         const { target: { name, value } } = event;
@@ -28,14 +31,27 @@ class SignIn extends Component {
             alert("Username cannot be blank")
         }
         else {
-            console.log('ok')
+            fetch('http://localhost:4000/signin', {
+                method: 'post',
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    name: name,
+                    password: password
+                })
+            })
+            .then(response => response.json())
+            .then(user => this.props.loadUser(user))
+            .catch(err => {
+                console.log(err.message )
+                // this.props.displayError(err) 
+            })
         }
     }
 
     render () {
         return ( 
             <div className="container rounded shadow p-3 mb-5 bg-white rounded" style={containerStyle}>
-                <h2 className="text-center m-3">Project Edward</h2>
+                <h2 className="text-center m-3">Edward</h2>
                 <div className="form-group">
                     <label className="mt-3" htmlFor="username">Username</label>
                     <input 
@@ -58,6 +74,7 @@ class SignIn extends Component {
                         required 
                     />
                 </div>
+                <p>{this.props.errorMessage}</p>
                 <p >new here?  <a href="#" >Register</a></p>
                 <div className="text-center">
                 <button 

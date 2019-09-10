@@ -16,12 +16,12 @@ recognition.interimResults = true
 class Home extends Component {
     constructor (props) {
         super(props);
-        this.state = ({
+        this.state = {
             isListening: false,
             input: '',
             output: '',
             selectedLanguage : 'en-de',
-        })
+        }
     }
     
     onLanguageSelect = (e) => {
@@ -47,7 +47,6 @@ class Home extends Component {
             e.target.classList.remove("btn-danger")
         }
     }
-
 
 
 // handler for starting the voice recognition, outputs the final result to the input state

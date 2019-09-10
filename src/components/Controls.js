@@ -3,8 +3,7 @@ import { languagesArray, languagesObject } from '../data/languages'
 
 const buttonStyle = {
     color: "white",
-    borderRadius: "0.2em",
-    padding: "0.6em"
+    padding: "0.6em",
 }
 
 const languages = languagesArray.map((language, index) => 

@@ -23,11 +23,11 @@ function getUserIndexByName (name) {
     return users.findIndex(user => user.name === name)
 }
 
-function increaseTranslationCount (name) {
-    const user = users.filter(user => user.name.toLowerCase() === name.toLowerCase())
-    user[0].translationCount++
+// function increaseTranslationCount (name) {
+//     const user = users.filter(user => user.name.toLowerCase() === name.toLowerCase())
+//     user[0].translationCount++
 
-}
+// }
  
 // translate interface   
 const LanguageTranslatorV3 = require('ibm-watson/language-translator/v3');
@@ -78,9 +78,13 @@ app.post('/signin', (req, res) => {
     const { name, password } = req.body;  
     const requestedUser = authenticateUser(name, password);
     if (requestedUser.length) {
-        res.json(requestedUser[0]);
+        const { name, translationCount, admin} = requestedUser[0]
+        const user = { name:name, translationCount:translationCount, admin: admin }
+        res.json(user);
     } else {
-        res.status(400).json('invalid credentials')
+        const error =  new Error
+        error.message = 'invalid credentials'
+        res.status(404).send(error)
     }    
 });
 

@@ -34,7 +34,7 @@ class Register extends Component {
     render () {
         return ( 
             <div className="container rounded shadow p-3 mb-5 bg-white rounded" style={containerStyle}>
-                <h2 className="text-center m-3">Project Edward</h2>
+                <h2 className="text-center m-3">Edward</h2>
                 <div className="form-group">
                     <label className="mt-3" htmlFor="username">Username</label>
                     <input 
