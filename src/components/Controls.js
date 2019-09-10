@@ -1,5 +1,5 @@
-import React, { Component }from 'react';
-import { languagesArray, languagesObject } from '../languages'
+import React from 'react';
+import { languagesArray, languagesObject } from '../data/languages'
 
 const buttonStyle = {
     color: "white",
@@ -16,7 +16,7 @@ const languages = languagesArray.map((language, index) =>
         </option>
 )
 
-const Controls = ({ onLanguageSelect, selectedLanguage, toggleListen, isListening}) => {
+const Controls = ({onLanguageSelect, selectedLanguage, toggleListen, isListening, renderButton, onTranslate}) => {
     return (
         <>
             <div className="select_language">
@@ -28,12 +28,23 @@ const Controls = ({ onLanguageSelect, selectedLanguage, toggleListen, isListenin
                 </select>
             </div>
             <div className="buttons text-center">
-                <button type="submit" className="btn m-3 btn-danger" style={buttonStyle} onClick={toggleListen}>
+                <button 
+                    type="submit" 
+                    className="btn m-3 btn-danger" 
+                    style={buttonStyle} 
+                    onClick={(e) => {toggleListen(); renderButton(e)}}>
                     {
                         isListening ? 'Stop' : 'Record'
                     }
                 </button>
-                <button type="submit" className="btn m-3 btn-success" style={buttonStyle}>Translate</button>
+                <button 
+                    type="submit" 
+                    className="btn m-3 btn-success" 
+                    style={buttonStyle}
+                    onClick={onTranslate}
+                >
+                    Translate
+                </button>
             </div>
         </>
     )
