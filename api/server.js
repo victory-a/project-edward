@@ -23,11 +23,10 @@ function getUserIndexByName (name) {
     return users.findIndex(user => user.name === name)
 }
 
-// function increaseTranslationCount (name) {
-//     const user = users.filter(user => user.name.toLowerCase() === name.toLowerCase())
-//     user[0].translationCount++
-
-// }
+function increaseTranslationCount (name) {
+    const user = users.filter(user => user.name.toLowerCase() === name.toLowerCase())
+    user[0].translationCount++
+}
  
 // translate interface   
 const LanguageTranslatorV3 = require('ibm-watson/language-translator/v3');
@@ -37,7 +36,7 @@ const languageTranslator = new LanguageTranslatorV3({
     url: 'https://gateway-lon.watsonplatform.net/language-translator/api'
 });
 
-async function translate (req, res, textToBeTranslated, targetLanguage) {
+async function translate (res, textToBeTranslated, targetLanguage) {
     const translateParams = { 
         text: textToBeTranslated,
         model_id: targetLanguage,
@@ -59,8 +58,10 @@ app.get('/users', (req, res) => {
 })
 
 app.post('/translate', (req, res) => {
-    const {text, language,} = req.body;
-    translate(req, res, text, language);
+    const {name, text, language,} = req.body;
+    increaseTranslationCount(name)
+    console.log('USERNAME', req.body)
+    translate(res, text, language);
 });
 
 app.post('/register', (req, res) => {

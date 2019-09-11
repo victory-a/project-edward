@@ -80,7 +80,6 @@ class Home extends Component {
                 const transcript = event.results[i][0].transcript;
                 if (event.results[i].isFinal) {
                     finalTranscript += transcript + ' ';
-                    console.log('recognized language', recognition.lang)
                     this.setState({input: finalTranscript});
                 }
                 else {
@@ -96,9 +95,10 @@ class Home extends Component {
 ///to be translated and target language as arguments
 
     onTranslate = () => {
+        const { currentUser } = this.props
         const {input, selectedLanguage } = this.state;
-        console.log('input', this.state.input)
-        translate(input, selectedLanguage)
+        // console.log('input', this.state.input)
+        translate(currentUser, input, selectedLanguage)
         .then(response => {
             this.setState({output: response[0].translation})
             setTimeout(speak(response[0].translation), 2000)
