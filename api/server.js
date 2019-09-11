@@ -23,11 +23,11 @@ function getUserIndexByName (name) {
     return users.findIndex(user => user.name === name)
 }
 
-function increaseTranslationCount (name) {
-    const user = users.filter(user => user.name.toLowerCase() === name.toLowerCase())
-    user[0].translationCount++
+// function increaseTranslationCount (name) {
+//     const user = users.filter(user => user.name.toLowerCase() === name.toLowerCase())
+//     user[0].translationCount++
 
-}
+// }
  
 // translate interface   
 const LanguageTranslatorV3 = require('ibm-watson/language-translator/v3');
@@ -74,11 +74,17 @@ app.post('/register', (req, res) => {
     res.json(users[users.length - 1]);
 });
 
+/* this handler takes the user credentials (name, password)  and authenticates them.
+ if the user exists an oobject (user) with  name, translationcount and admin status is sent as the response
+*/
+
 app.post('/signin', (req, res) => {
     const { name, password } = req.body;  
     const requestedUser = authenticateUser(name, password);
     if (requestedUser.length) {
-        res.json(requestedUser[0]);
+        const { name, translationCount, admin} = requestedUser[0]
+        const user = { name:name, translationCount:translationCount, admin: admin }
+        res.json(user);
     } else {
         res.status(400).json('invalid credentials')
     }    

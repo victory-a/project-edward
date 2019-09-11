@@ -1,22 +1,21 @@
 import React from 'react';
 
-const Display = ({ input, output, onChange}) => {
+const containerStyle = {
+    minHeight: "15em"
+}
+
+const Display = ({ input, output }) => {
     return (
         <>
-            <div className="form-group">
-                <textarea 
-                    className="form-control mt-2 mb-2" 
-                    rows="4"  
-                    defaultValue={input}
-                    read="true">        
-                </textarea>
-                <textarea 
-                    className="form-control mt-2 mb-2" 
-                    rows="4"  
-                    defaultValue={output}
-                    read="true">        
-                </textarea>
-            </div> 
+            <div className="container border mb-4" style={containerStyle}>
+                <div className="pt-4 text-center">
+                    <p>{input}</p>
+                </div>
+                <div className=" p-2  text-center">
+                    <p>{output}</p>
+                </div>
+            </div>
+
         </>
     )
 }

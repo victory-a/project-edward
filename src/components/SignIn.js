@@ -28,14 +28,27 @@ class SignIn extends Component {
             alert("Username cannot be blank")
         }
         else {
-            console.log('ok')
+            fetch('http://localhost:4000/signin', {
+                method: 'post',
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    name: name,
+                    password: password
+                })
+            })
+            .then(response => response.json())
+            .then(user => this.props.loadUser(user))
+            .catch(err => {
+                console.log(err.message )
+                // this.props.displayError(err) 
+            })
         }
     }
 
     render () {
         return ( 
             <div className="container rounded shadow p-3 mb-5 bg-white rounded" style={containerStyle}>
-                <h2 className="text-center m-3">Project Edward</h2>
+                <h2 className="text-center m-3">Edward</h2>
                 <div className="form-group">
                     <label className="mt-3" htmlFor="username">Username</label>
                     <input 
@@ -44,7 +57,6 @@ class SignIn extends Component {
                         className="form-control" 
                         placeholder="Enter name" 
                         onChange={this.onChange}
-                        required
                     />
                 </div>
                 <div className="form-group">
@@ -55,10 +67,10 @@ class SignIn extends Component {
                         className="form-control" 
                         placeholder="Password" 
                         onChange={this.onChange} 
-                        required 
                     />
                 </div>
                 <p >new here?  <a href="#" >Register</a></p>
+                <p className="text-danger text-center p-2">{this.props.errorMessage}</p>
                 <div className="text-center">
                 <button 
                     type="submit" 
