@@ -7,7 +7,7 @@ class App extends Component {
     constructor(props){
         super(props);
         this.state= {
-            name: '',
+            name: 'Victory',
             translationCount: 0,
             isAdmin: false
         }
@@ -34,12 +34,9 @@ class App extends Component {
         return (
             <div>
                 {/* <Recognition/> */}
-                <SignIn 
-                    loadUser={this.loadUser} 
-                    errorMessage={this.state.errorMessage}
-                />
+                {/* <SignIn loadUser={this.loadUser} errorMessage={this.state.errorMessage} /> */}
                 {/* <Register /> */}
-                {/* <Home /> */}
+                <Home currentUser={this.state.name}/>
             </div>
         )
     }
