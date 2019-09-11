@@ -70,7 +70,7 @@ app.post('/register', (req, res) => {
         password: req.body.password,
         admin: false,
         translationCount: 0,
-        joined: new Date()
+        joined: new Date() 
     });
     res.json(users[users.length - 1]);
 });
