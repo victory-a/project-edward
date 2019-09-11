@@ -20,14 +20,29 @@ class Register extends Component {
     }
 
     onSubmit = () => {
-        const { password, confirmPassword , name} = this.state;
-        if ( password !== confirmPassword) {
-            alert("Passwords don't match")
-        } else if (!name) {
-            alert("Username cannot be blank")
-        }
-        else {
-            console.log('ok')
+        try {
+            const { name, password, confirmPassword } = this.state;
+            if (password !== confirmPassword) {
+                alert("Passwords don't match")
+            } else if (!name) {
+                alert("Username cannot be blank")
+            } else if (!password) {
+                alert("Password cannot be blank")
+            } else {
+                console.log('Register successful')
+                fetch('http://localhost:4000/register', {
+                    method: 'post',
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        name: name,
+                        password: password
+                    })
+                })
+                .then(response => response.json())
+                .then(user => this.props.loadUser(user))
+            }
+        } catch (err) {
+            alert('Kindly fill all fields')
         }
     }
 
@@ -43,7 +58,6 @@ class Register extends Component {
                         className="form-control" 
                         placeholder="Enter name" 
                         onChange={this.onChange}
-                        required 
                     />
                 </div>
                 <div className="form-group">
@@ -54,7 +68,6 @@ class Register extends Component {
                         className="form-control" 
                         placeholder="Password" 
                         onChange={this.onChange}
-                        required
                     />
                 </div>
                 <div className="form-group">

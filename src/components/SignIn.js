@@ -21,27 +21,28 @@ class SignIn extends Component {
     }
 
     onSubmit = () => {
-        const { password, name} = this.state;
-        if ( !password ) {
-            alert("provide a password")
-        } else if (!name) {
-            alert("Username cannot be blank")
-        }
-        else {
-            fetch('http://localhost:4000/signin', {
-                method: 'post',
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    name: name,
-                    password: password
+        try {
+            const { name, password } = this.state;
+            if ( !password ) {
+                alert("Password cannot be blank")
+            } else if (!name) {
+                alert("Username cannot be blank")
+            }
+            else {
+                fetch('http://localhost:4000/signin', {
+                    method: 'post',
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        name: name,
+                        password: password
+                    })
                 })
-            })
-            .then(response => response.json())
-            .then(user => this.props.loadUser(user))
-            .catch(err => {
-                console.log(err.message )
-                // this.props.displayError(err) 
-            })
+                .then(response => response.json())
+                .then(user => this.props.loadUser(user))
+            }
+
+        } catch (err) {
+            alert('kidly fill all fields')
         }
     }
 
@@ -70,7 +71,7 @@ class SignIn extends Component {
                     />
                 </div>
                 <p >new here?  <a href="#" >Register</a></p>
-                <p className="text-danger text-center p-2">{this.props.errorMessage}</p>
+                <p className="text-danger text-center ">{this.props.errorMessage}</p>
                 <div className="text-center">
                 <button 
                     type="submit" 
