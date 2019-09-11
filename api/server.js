@@ -74,6 +74,10 @@ app.post('/register', (req, res) => {
     res.json(users[users.length - 1]);
 });
 
+/* this handler takes the user credentials (name, password)  and authenticates them.
+ if the user exists an oobject (user) with  name, translationcount and admin status is sent as the response
+*/
+
 app.post('/signin', (req, res) => {
     const { name, password } = req.body;  
     const requestedUser = authenticateUser(name, password);
@@ -82,9 +86,7 @@ app.post('/signin', (req, res) => {
         const user = { name:name, translationCount:translationCount, admin: admin }
         res.json(user);
     } else {
-        const error =  new Error
-        error.message = 'invalid credentials'
-        res.status(404).send(error)
+        res.status(400).json('invalid credentials')
     }    
 });
 

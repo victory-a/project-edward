@@ -7,16 +7,22 @@ class App extends Component {
     constructor(props){
         super(props);
         this.state= {
-            errorMessage: ''
+            name: '',
+            translationCount: 0,
+            isAdmin: false
         }
     }
 
     loadUser = (user) => {
-        this.setState({
-            name: user.name,
-            translationCount: user.translationCount,
-            isAdmin: user.admin,
-        })
+        if(user.hasOwnProperty('name')) {
+            this.setState({
+                name: user.name,
+                translationCount: user.translationCount,
+                isAdmin: user.admin,
+            })
+        }  else {
+            this.setState({errorMessage: 'user not found :)'})
+        }
     }
 
     displayError = (error) => {
@@ -30,7 +36,6 @@ class App extends Component {
                 {/* <Recognition/> */}
                 <SignIn 
                     loadUser={this.loadUser} 
-                    displayError={this.displayError} 
                     errorMessage={this.state.errorMessage}
                 />
                 {/* <Register /> */}

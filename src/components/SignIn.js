@@ -14,9 +14,6 @@ const buttonStyle = {
 
 
 class SignIn extends Component {
-    constructor(props) {
-        super(props)
-    }
     
     onChange = (event) => {
         const { target: { name, value } } = event;
@@ -60,7 +57,6 @@ class SignIn extends Component {
                         className="form-control" 
                         placeholder="Enter name" 
                         onChange={this.onChange}
-                        required
                     />
                 </div>
                 <div className="form-group">
@@ -71,11 +67,10 @@ class SignIn extends Component {
                         className="form-control" 
                         placeholder="Password" 
                         onChange={this.onChange} 
-                        required 
                     />
                 </div>
-                <p>{this.props.errorMessage}</p>
                 <p >new here?  <a href="#" >Register</a></p>
+                <p className="text-danger text-center p-2">{this.props.errorMessage}</p>
                 <div className="text-center">
                 <button 
                     type="submit" 
