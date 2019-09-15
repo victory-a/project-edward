@@ -48,10 +48,10 @@ async function translate (res, textToBeTranslated, targetLanguage) {
         res.send(result.translations); 
     } catch (err) {
         console.log('error:', err);
-        res.send(err);
+        res.send(err);  
     }
 }
-
+   
 //route handlers
 app.get('/users', (req, res) => {
     res.send(users)
@@ -68,24 +68,24 @@ app.post('/register', (req, res) => {
     users.push({
         name: req.body.name,
         password: req.body.password,
-        admin: false,
+        admin: false,  
         translationCount: 0,
         joined: new Date() 
-    });
+    });  
     res.json(users[users.length - 1]);
 });
-
+  
 /* this handler takes the user credentials (name, password)  and authenticates them.
  if the user exists an oobject (user) with  name, translationcount and admin status is sent as the response
 */
 
-app.post('/signin', (req, res) => {
+app.post('/signin', (req, res) => {  
     const { name, password } = req.body;  
     const requestedUser = authenticateUser(name, password);
     if (requestedUser.length) {
         const { name, translationCount, admin} = requestedUser[0]
         const user = { name:name, translationCount:translationCount, admin: admin }
-        res.json(user);
+        res.json(user);  
     } else {
         res.status(400).json('invalid credentials')
     }    
@@ -93,7 +93,7 @@ app.post('/signin', (req, res) => {
 
 app.delete('/delete/:name', (req, res) => {
     const userName = req.params.name
-    const userIndex = getUserIndexByName(userName)
+    const userIndex = getUserIndexByName(userName)  
     if (userIndex !== 0 && users[userIndex].admin !== true) {
         users.splice(userIndex, 1);
         res.sendStatus(204)
