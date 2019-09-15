@@ -37,8 +37,8 @@ class App extends Component {
         return (
             <div>
                 {/* <SignIn loadUser={this.loadUser} errorMessage={this.state.errorMessage} /> */}
-                {/* <Register loadUser={this.loadUser}/> */}
-                {/* <Home currentUser={this.state.name}/> */}
+                {/* <Register loadUser={this.loadUser} /> */}
+                {/* <Home currentUser={this.state.name} /> */}
                 <ViewUsers />
             </div>
         )
