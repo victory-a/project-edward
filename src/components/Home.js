@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import Display from './Display';
 import Controls from './Controls';
+import Navbar from './Navbar';
 import translate from '../helper_functions/translate';
-import speak from '../speak';
+import speak from '../helper_functions/speak';
 
 
 // initializes speech recognition from web spwwch api
@@ -109,6 +110,7 @@ class Home extends Component {
     render () {
         return (
             <>
+                <Navbar />
                 <div className="container mt-5 red-border">
                     <Display input={this.state.input} output={this.state.output} />
                     <Controls 

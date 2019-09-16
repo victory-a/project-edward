@@ -3,6 +3,22 @@ import Register from './components/Register';
 import SignIn from './components/SignIn';
 import Home from './components/Home';
 import ViewUsers from './components/ViewUsers';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+
+
+const NestedRoute = ({ component: Component, ...rest }) => (
+    <Route {...rest} render={(props) => (
+        <Component {...props} />
+    )} />
+)
+
+const ProtectedRoute = ({ render: Component, ...rest }) => (
+    <Route {...rest} render={(props) => (
+        <Component {...props} />
+    )} />
+)
+
+
 
 //REMEMBER TO CHANGE THE NAME STATE VALUE TO AN EMPTY STRING AFTER ADDING ROUTING
 class App extends Component {
@@ -35,12 +51,18 @@ class App extends Component {
     }
     render() {
         return (
-            <div>
+            <>
                 {/* <SignIn loadUser={this.loadUser} errorMessage={this.state.errorMessage} /> */}
                 {/* <Register loadUser={this.loadUser} /> */}
                 {/* <Home currentUser={this.state.name} /> */}
-                <ViewUsers />
-            </div>
+                {/* <ViewUsers /> */}
+                <Router>
+                    <Route exact path='/' render={(props) => <SignIn {...props} loadUser={this.loadUser} errorMessage={this.state.errorMessage} />} />
+                    <Route path='/register' render={(props) => <Register {...props} loadUser={this.loadUser} />} />
+                    <ProtectedRoute path='/home' render={(props) => <Home {...props} currentUser={this.state.name} />} />
+                    <NestedRoute path='/view-users'  component={ViewUsers} />
+                </Router>
+            </>
         )
     }
 }
