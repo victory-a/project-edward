@@ -11,9 +11,7 @@ const app = express();
 app.use(bodyParser.json())
 app.use(cors());
 app.use(morgan('dev'))
-
-//grab request parameters 
-
+  
 //helper functions
 function authenticateUser (name, password) {
     return users.filter(user => user.name.toLowerCase() === name.toLowerCase() && user.password === password)
@@ -21,7 +19,7 @@ function authenticateUser (name, password) {
 
 function getUserIndexByName (name) {
     return users.findIndex(user => user.name === name)
-}
+}  
 
 function increaseTranslationCount (name) {
     const user = users.filter(user => user.name.toLowerCase() === name.toLowerCase())

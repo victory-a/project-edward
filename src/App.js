@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Register from './components/Register';
 import SignIn from './components/SignIn';
-import Home from './components/Home'
+import Home from './components/Home';
+import ViewUsers from './components/ViewUsers';
 
 //REMEMBER TO CHANGE THE NAME STATE VALUE TO AN EMPTY STRING AFTER ADDING ROUTING
 class App extends Component {
@@ -22,7 +23,7 @@ class App extends Component {
                 translationCount: user.translationCount,
                 isAdmin: user.admin,
             })
-            console.log('sign in successful')
+            console.log('user load successful')
         }  else {
             this.setState({errorMessage: 'Invalid username or password'})
         }
@@ -35,10 +36,10 @@ class App extends Component {
     render() {
         return (
             <div>
-                {/* <Recognition/> */}
-                <SignIn loadUser={this.loadUser} errorMessage={this.state.errorMessage} />
-                {/* <Register loadUser={this.loadUser}/> */}
-                {/* <Home currentUser={this.state.name}/> */}
+                {/* <SignIn loadUser={this.loadUser} errorMessage={this.state.errorMessage} /> */}
+                {/* <Register loadUser={this.loadUser} /> */}
+                {/* <Home currentUser={this.state.name} /> */}
+                <ViewUsers />
             </div>
         )
     }
