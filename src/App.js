@@ -18,8 +18,6 @@ const ProtectedRoute = ({ render: Component, ...rest }) => (
     )} />
 )
 
-
-
 //REMEMBER TO CHANGE THE NAME STATE VALUE TO AN EMPTY STRING AFTER ADDING ROUTING
 class App extends Component {
     constructor(props){

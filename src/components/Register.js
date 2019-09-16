@@ -40,7 +40,7 @@ class Register extends Component {
                     })
                 })
                 .then(response => response.json())
-                .then(user => this.props.loadUser(user))
+                .then(user => user)
             }
         } catch (err) {
             alert('Kindly fill all fields')
