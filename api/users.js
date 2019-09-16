@@ -1,13 +1,20 @@
 const users = [
     {
-        name: 'victory',
+        name: "victory",
         password: "jack",
         admin: true,
         translationCount: 0,
         joined: new Date(),
     },
     {
-        name: 'princess',
+        name: "paschal",
+        password: "shakes",
+        admin: false,
+        translationCount: 0,
+        joined: new Date(),
+    },
+    {
+        name: "princess",
         password: "rose",
         admin: false,
         translationCount: 0,

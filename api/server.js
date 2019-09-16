@@ -4,12 +4,12 @@ const morgan = require('morgan');
 const users  = require('./users');
 const cors = require('cors');
 require('dotenv').config();
-
+  
 const app = express();
 
 //middlewares
 app.use(bodyParser.json())
-app.use(cors());
+app.use(cors());  
 app.use(morgan('dev'))
   
 //helper functions
