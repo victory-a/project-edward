@@ -1,48 +1,49 @@
 import React from 'react';
 // import {Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
-const NavBar = () => {
+ class NavBar extends React.Component {
+    constructor(props) {
+        super(props);
+        this.toggleNavbar = this.toggleNavbar.bind(this);
+        this.state = {
+        collapsed: true,
+        };
+        }
+        toggleNavbar() {
+            this.setState({
+            collapsed: !this.state.collapsed,
+            });
+            }
+
+  render() {
+    const collapsed = this.state.collapsed;
+    const classOne = collapsed ? 'collapse navbar-collapse' : 'collapse navbar-collapse show';
+    const classTwo = collapsed ? 'navbar-toggler navbar-toggler-right collapsed' : 'navbar-toggler navbar-toggler-right';   
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <span className="navbar-brand">Edward</span>
-            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span className="navbar-toggler-icon"></span>
-            </button>
-            <div className="collapse navbar-collapse" id="navbarNav">
-                <ul className="navbar-nav ml-auto">
-                    <li className="nav-item ">
-                        <Link className="nav-link active" to="/home">Home</Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link className="nav-link active" to="/view-users">Users</Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link className="nav-link active" to="/">Sign Out</Link>
-                    </li>
-                </ul>
+            <div className="container">
+                <span className="navbar-brand" href="#">Edward</span>
+                <button onClick={this.toggleNavbar} className={`${classTwo}`} type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon" />
+                </button>
+                <div className={`${classOne}`} id="navbarResponsive">
+                    <ul className="navbar-nav ml-auto">
+                        <li className="nav-item">
+                            <NavLink className="nav-link" activeClassName="active" to="/home">Home</NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink className="nav-link" activeClassName="active" to="/view-users">Users</NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink className="nav-link" activeClassName="#" to="/">Sign out</NavLink>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </nav>
-        // <div className="mb2">
-        //   <Navbar color="light" light expand="md">
-        //     <NavbarBrand href="/" className="pl-4">Edward</NavbarBrand>
-        //     <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
-        //     <Collapse isOpen={!this.state.collapsed} navbar>
-        //       <Nav navbar className="ml-auto mr-3">
-        //         <NavItem>
-        //           <Link to="/home"><NavLink>Home</NavLink></Link>
-        //         </NavItem>
-        //         <NavItem>
-        //           <Link to="/view-users"><NavLink>Users</NavLink></Link>
-        //         </NavItem>
-        //         <NavItem>
-        //           <Link to="/"><NavLink>Sign Out</NavLink></Link>
-        //         </NavItem>
-        //       </Nav>
-        //       </Collapse>
-        //   </Navbar>
-        // </div>
     );
+  }
 }
 
 export default NavBar;
