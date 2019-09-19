@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 
 const containerStyle = {
     width: "35%",
@@ -71,17 +70,15 @@ class SignIn extends Component {
                         onChange={this.onChange} 
                     />
                 </div>
-                <p >new here?  <Link to="/register" >Register</Link></p>
+                <p >new here?  <span style={{cursor: "pointer"}}>Register</span></p>
                 <p className="text-danger text-center ">{this.props.errorMessage}</p>
                 <div className="text-center">
-                    <Link to="/home">
                         <button type="submit" 
                             className="btn m-3" 
                             style={buttonStyle} 
                             onClick={this.onSubmit}>
                                 Sign In
                         </button>
-                    </Link>
                 </div>
             </div> 
         )

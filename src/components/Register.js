@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
 
 const containerStyle = {
     width: "35%",
@@ -82,9 +81,8 @@ class Register extends Component {
                         required
                     />
                 </div>
-                <p >not new?  <Link to="/" >Sign in</Link></p>
+                <p >not new?  <span style={{"cursor": "pointer"}}>Sign in</span></p>
                 <div className="text-center">
-                    <Link to="/home">
                         <button
                             type="submit"
                             className="btn m-3"
@@ -92,7 +90,6 @@ class Register extends Component {
                             style={buttonStyle}>
                             Register
                         </button>
-                    </Link>
                 </div>
             </div> 
         )   

@@ -6,9 +6,9 @@ async function translate(currentUser, inputText, outputLanguage) {
             method: 'post',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
+                name: currentUser,
                 text: inputText,
-                language: outputLanguage,
-                name: currentUser
+                language: outputLanguage
             })
         })
         const response = await request.json()
