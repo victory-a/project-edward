@@ -39,10 +39,19 @@ class Register extends Component {
                     })
                 })
                 .then(response => response.json())
-                .then(user => user)
+                .then(user => {
+                    this.props.loadUser(user)
+                    this.props.onRouteChange("home")  
+                })
             }
         } catch (err) {
             alert('Kindly fill all fields')
+        }
+    }
+
+    onEnterKey = (e) => {
+        if (e.keyCode === 13) {
+          this.onSubmit()
         }
     }
 
@@ -78,10 +87,17 @@ class Register extends Component {
                         className="form-control" 
                         placeholder="Password" 
                         onChange={this.onChange}
-                        required
+                        onKeyDown={this.onEnterKey}
                     />
                 </div>
-                <p >not new?  <span style={{"cursor": "pointer"}}>Sign in</span></p>
+                <p >not new?   
+                    <span 
+                        className="font-weight-bold pl-2"
+                        style={{cursor: "pointer"}}
+                        onClick={() => this.props.onRouteChange("signin")}>
+                            Sign in
+                    </span>
+                </p>
                 <div className="text-center">
                         <button
                             type="submit"

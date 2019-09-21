@@ -41,6 +41,7 @@ const Controls = ({onLanguageSelect, selectedLanguage, toggleListen, isListening
                     className="btn m-3 btn-success" 
                     style={buttonStyle}
                     onClick={onTranslate}
+                    disabled={isListening}
                 >
                     Translate
                 </button>

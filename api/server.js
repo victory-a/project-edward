@@ -53,7 +53,7 @@ async function translate (res, textToBeTranslated, targetLanguage) {
 //route handlers
 app.get('/users', (req, res) => {
     res.send(users)
-})
+})  
 
 app.post('/translate', (req, res) => {
     const {name, text, language,} = req.body;

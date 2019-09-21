@@ -38,7 +38,7 @@ class Home extends Component {
         },this.dictate)
     }
 
-//changes the record button property depending on isListening state value
+//Changes the record button property depending on isListening state value
     renderButton = (e) => {
         if (this.state.isListening) {
             e.target.classList.add("btn-danger")
@@ -98,7 +98,6 @@ class Home extends Component {
     onTranslate = () => {
         const { currentUser } = this.props
         const {input, selectedLanguage } = this.state;
-        // console.log('input', this.state.input)
         translate(currentUser, input, selectedLanguage)
         .then(response => {
             this.setState({output: response[0].translation})
@@ -110,7 +109,10 @@ class Home extends Component {
     render () {
         return (
             <>
-                <Navbar />
+                <Navbar 
+                    onRouteChange={this.props.onRouteChange} 
+                    onClearUser={this.props.onClearUser}
+                />
                 <div className="container mt-5 red-border">
                     <Display input={this.state.input} output={this.state.output} />
                     <Controls 

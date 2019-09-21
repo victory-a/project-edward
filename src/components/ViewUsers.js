@@ -66,7 +66,7 @@ class ViewUsers extends Component {
                             color="danger" 
                             size="sm" 
                             className="mr-2" 
-                            disabled={user.admin}
+                            disabled={!this.props.isUserAdmin}
                             onClick={(e) => {
                                 this.toggleModal(); 
                                 this.grabUserToBeDeleted(user.name);
@@ -79,7 +79,7 @@ class ViewUsers extends Component {
         })
         return (
             <>
-                <Navbar />
+                <Navbar onRouteChange={this.props.onRouteChange} onClearUser={this.props.onClearUser} />
                 {
                     loading  ?
                         <p>Loading</p>

@@ -33,23 +33,33 @@ class App extends Component {
         }
     }
 
+    clearUser = () => {
+        this.setState({
+            name: "",
+            translationCount: 0,
+            isAdmin: false,
+            route: 'signin',
+            isauthenticated: false
+        })
+    }
+
     displayError = (error) => {
         console.log("error", error)
         this.setState({ errorMessage: error})
     }
 
     routeChange = (targetComponent) => {
-        if ( this.state.isauthenticated && targetComponent === "Sign in") {
-            this.setState({ route: "Home"})
+        if ( this.state.isauthenticated && targetComponent === "home") {
+            this.setState({ route: "home"})
         }
-        else if (this.state.isauthenticated && targetComponent === "ViewUsers") {
-            this.setState({ route: "ViewUsers"})
+        else if (this.state.isauthenticated && targetComponent === "viewusers") {
+            this.setState({ route: "viewusers"})
         }
-        else if (targetComponent === "Register") {
-            this.setState({ route: "Register"})
+        else if (targetComponent === "register") {
+            this.setState({ route: "register"})
         }
         else {
-            this.setState({ route: "SignIn"})
+            this.setState({ route: "signin"})
         }
     }
 
@@ -58,8 +68,8 @@ class App extends Component {
         const components = {
             signin: <SignIn loadUser={this.loadUser} errorMessage={errorMessage} onRouteChange={this.routeChange} /> ,
             register: <Register loadUser={this.loadUser} onRouteChange={this.routeChange}/>,
-            home: <Home currentUser={name} onRouteChange={this.routeChange}/>,
-            viewusers: <ViewUsers onRouteChange={this.routeChange}/>
+            home: <Home currentUser={name} onRouteChange={this.routeChange} onClearUser={this.clearUser}/>,
+            viewusers: <ViewUsers onRouteChange={this.routeChange} onClearUser={this.clearUser} isUserAdmin={this.state.isAdmin}/>
         }
     //attach the ononRouteChange method to the right buttons and navlinks
     // configure isauthenticated changing method and figure out where to fix it
