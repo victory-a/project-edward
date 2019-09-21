@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 
 const containerStyle = {
     width: "35%",
@@ -15,12 +14,15 @@ const buttonStyle = {
 
 
 class SignIn extends Component {
-    
+
     onChange = (event) => {
         const { target: { name, value } } = event;
         this.setState({ [name]: value })
     }
 
+    /* this function handles auntentication. Returns the user if found and 
+    sends the target destination (component) in an onRouteChange method.
+    */
     onSubmit = () => {
         try {
             const { name, password } = this.state;
@@ -39,11 +41,20 @@ class SignIn extends Component {
                     })
                 })
                 .then(response => response.json())
-                .then(user => this.props.loadUser(user))
+                .then(user => {
+                    this.props.loadUser(user)
+                    this.props.onRouteChange("home")  
+                })
             }
 
         } catch (err) {
             alert('kidly fill all fields')
+        }
+    }
+
+    onEnterKey = (e) => {
+        if (e.keyCode === 13) {
+          this.onSubmit()
         }
     }
 
@@ -68,20 +79,25 @@ class SignIn extends Component {
                         name="password" 
                         className="form-control" 
                         placeholder="Password" 
-                        onChange={this.onChange} 
+                        onChange={this.onChange}
+                        onKeyDown={this.onEnterKey}
                     />
                 </div>
-                <p >new here?  <Link to="/register" >Register</Link></p>
+                <p >new here?   
+                    <span 
+                        className="font-weight-bold pl-2"
+                        style={{cursor: "pointer"}}
+                        onClick={() => this.props.onRouteChange("register")}>
+                            Register
+                    </span></p>
                 <p className="text-danger text-center ">{this.props.errorMessage}</p>
                 <div className="text-center">
-                    <Link to="/home">
                         <button type="submit" 
                             className="btn m-3" 
                             style={buttonStyle} 
                             onClick={this.onSubmit}>
                                 Sign In
                         </button>
-                    </Link>
                 </div>
             </div> 
         )

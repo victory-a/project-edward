@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
 
 const containerStyle = {
     width: "35%",
@@ -40,10 +39,19 @@ class Register extends Component {
                     })
                 })
                 .then(response => response.json())
-                .then(user => this.props.loadUser(user))
+                .then(user => {
+                    this.props.loadUser(user)
+                    this.props.onRouteChange("home")  
+                })
             }
         } catch (err) {
             alert('Kindly fill all fields')
+        }
+    }
+
+    onEnterKey = (e) => {
+        if (e.keyCode === 13) {
+          this.onSubmit()
         }
     }
 
@@ -79,12 +87,18 @@ class Register extends Component {
                         className="form-control" 
                         placeholder="Password" 
                         onChange={this.onChange}
-                        required
+                        onKeyDown={this.onEnterKey}
                     />
                 </div>
-                <p >not new?  <Link to="/" >Sign in</Link></p>
+                <p >not new?   
+                    <span 
+                        className="font-weight-bold pl-2"
+                        style={{cursor: "pointer"}}
+                        onClick={() => this.props.onRouteChange("signin")}>
+                            Sign in
+                    </span>
+                </p>
                 <div className="text-center">
-                    <Link to="/home">
                         <button
                             type="submit"
                             className="btn m-3"
@@ -92,7 +106,6 @@ class Register extends Component {
                             style={buttonStyle}>
                             Register
                         </button>
-                    </Link>
                 </div>
             </div> 
         )   

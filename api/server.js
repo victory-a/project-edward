@@ -6,7 +6,7 @@ const cors = require('cors');
 require('dotenv').config();
   
 const app = express();
-
+// 
 //middlewares
 app.use(bodyParser.json())
 app.use(cors());  
@@ -53,7 +53,7 @@ async function translate (res, textToBeTranslated, targetLanguage) {
 //route handlers
 app.get('/users', (req, res) => {
     res.send(users)
-})
+})  
 
 app.post('/translate', (req, res) => {
     const {name, text, language,} = req.body;
