@@ -91,7 +91,6 @@ class Home extends Component {
         }
     }
 
-
 // calls the translate function when translate button is pressed passing in the text 
 ///to be translated and target language as arguments
 
@@ -104,7 +103,6 @@ class Home extends Component {
             setTimeout(speak(response[0].translation), 2000)
         }).catch(err => console.log(err))
     }
-
 
     render () {
         return (
@@ -128,6 +126,5 @@ class Home extends Component {
         )
     }
 } 
-
 
 export default Home; 
