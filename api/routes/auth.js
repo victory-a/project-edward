@@ -24,8 +24,8 @@ router.post('/register', async (req, res) => {
     })  
 
     try {
-        const newUser = await User.create(user);
-        res.json(newUser);
+        User.create(user);
+        res.json({success: true, message: 'registered successfully, go ahead and sign in'});
     } catch (err) {
         res.send(400).send(err);
     }
@@ -49,9 +49,10 @@ router.post('/signin', async (req, res) => {
     res.header('auth-token', token);
 
     try {
-        res.send(requestedUser);
+        const {name, id, admin } = requestedUser;
+        res.json({success: true, message: 'signed in successfully', user: { name, id, admin, token }});
     } catch (err) {  
-        res.sendStatus(404);
+        res.status(404).json({success: false, message: 'sign in unsuccessful'});
     }
 })
 
