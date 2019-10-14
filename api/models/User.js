@@ -3,11 +3,15 @@ const mongoose = require('mongoose')
 const UserSchema = mongoose.Schema({
     name: {
         type: String,
-        required: true
+        required: true,
+        min: 6,
+        max: 255
     },
     password: {
         type: String,
-        required: true
+        required: true,
+        min: 4,
+        max: 255
     },
     admin: {
         type: Boolean,
@@ -17,7 +21,10 @@ const UserSchema = mongoose.Schema({
         type: Number,
         default: 0
     },
-    joined: Date
+    joined: {  
+        type: Date,
+        default: Date.now
+    }
 })
 
 module.exports = mongoose.model('user', UserSchema);

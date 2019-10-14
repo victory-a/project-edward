@@ -6,17 +6,16 @@ const languageTranslator = new LanguageTranslatorV3({
     url: 'https://gateway-lon.watsonplatform.net/language-translator/api'
 });
 
-async function translate(res, textToBeTranslated, targetLanguage) {
+async function translate(req, res) {
+    const { text, language, } = req.body;
     const translateParams = {
-        text: textToBeTranslated,
-        model_id: targetLanguage,
+        text,
+        model_id: language
     };
     try {
         const result = await languageTranslator.translate(translateParams)
-        console.log(result);
         res.json(result.translations);
     } catch (err) {
-        console.log('error:', err);
         res.json(err);
     }
 }
