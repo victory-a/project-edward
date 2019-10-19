@@ -6,7 +6,7 @@
 - create an ibm cloud account and obtain an api key for ibm translate
 - add your api key, mongodb connection url, and randon token secret to the .env file
 - move the .env file to the api directory
-- run npm start in root directory and api directory to start the frontend and backend servers
+- run npm start in root directory and api directory 
 
 
 
