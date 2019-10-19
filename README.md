@@ -9,5 +9,4 @@
 - run npm start in root directory and api directory to start the frontend and backend servers
 
 
-## things i learnt while buiding this project
-*to be populated at completion
+
