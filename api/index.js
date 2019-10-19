@@ -29,4 +29,4 @@ mongoose.connect(uri, dbOptions)
 const PORT = process.env.port || 4000 
 app.listen(PORT, () => console.log(`Now listening on port ${PORT}`))
 
-       
+////////////////Remember to implement private routes later

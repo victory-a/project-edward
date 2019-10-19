@@ -1,44 +1,42 @@
 import React, { Component } from 'react';
+import axios from 'axios'
 import Display from './Display';
 import Controls from './Controls';
 import Navbar from './Navbar';
-import translate from '../helper_functions/translate';
 import speak from '../helper_functions/speak';
 
-
-// initializes speech recognition from web spwwch api
+// initializes speech recognition from web speech api
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
 const recognition = new SpeechRecognition()
 recognition.continous = true
 recognition.interimResults = true
 // recognition.lang = 'en-US'
 
-
 class Home extends Component {
-    constructor (props) {
+    constructor(props) {
         super(props);
         this.state = {
             isListening: false,
             input: '',
             output: '',
-            selectedLanguage : 'en-de',
+            language: 'en-de',
         }
     }
-    
+
     onLanguageSelect = (e) => {
         this.setState({
-            selectedLanguage: e.target.value 
+            language: e.target.value
         })
     }
 
-// switches the isListening state and starts the dictation process
+    // switches the isListening state and starts the dictation process
     toggleListen = () => {
         this.setState({
             isListening: !this.state.isListening
-        },this.dictate)
+        }, this.dictate)
     }
 
-//Changes the record button property depending on isListening state value
+    //Changes the record button property depending on isListening state value
     renderButton = (e) => {
         if (this.state.isListening) {
             e.target.classList.add("btn-danger")
@@ -49,28 +47,26 @@ class Home extends Component {
         }
     }
 
-
-// handler for starting the voice recognition, outputs the final result to the input state
-// ensures the microphone stays on till te user manually stops recording
-
+    // handler for starting the voice recognition, outputs the final result to the input state
+    // ensures the microphone stays on till te user manually stops recording
     dictate = () => {
-        console.log('listening', this.state.isListening)
+        // console.log('listening', this.state.isListening)
 
         if (this.state.isListening) {
             recognition.start();
             recognition.onend = () => {
-                console.log('continue listening', this.state.isListening)   
-                recognition.start(); 
+                // console.log('continue listening', this.state.isListening)
+                recognition.start();
             }
         } else {
             recognition.stop();
-            recognition.onend = () => { 
-                console.log("Stopped listening per click")
+            recognition.onend = () => {
+                // console.log("Stopped listening per click")
             }
         }
 
         recognition.onstart = () => {
-            console.log("Listening!")
+            // console.log("Listening!")
         }
 
         let finalTranscript = '';
@@ -81,7 +77,7 @@ class Home extends Component {
                 const transcript = event.results[i][0].transcript;
                 if (event.results[i].isFinal) {
                     finalTranscript += transcript + ' ';
-                    this.setState({input: finalTranscript});
+                    this.setState({ input: finalTranscript });
                 }
                 else {
                     interimTranscript += transcript;
@@ -91,30 +87,37 @@ class Home extends Component {
         }
     }
 
-// calls the translate function when translate button is pressed passing in the text 
-///to be translated and target language as arguments
-
-    onTranslate = () => {
-        const { currentUser } = this.props
-        const {input, selectedLanguage } = this.state;
-        translate(currentUser, input, selectedLanguage)
-        .then(response => {
-            this.setState({output: response[0].translation})
-            setTimeout(speak(response[0].translation), 2000)
-        }).catch(err => console.log(err))
+    ///to be translated and target language as arguments
+    increaseTranslationCount = (userId) => {
+        axios.patch(`http://localhost:4000/api/users/count/${userId}`)
+            .then(response => response)
+            .catch(err => err)
     }
 
-    render () {
+    // calls the translate function when translate button is pressed passing in the text 
+    onTranslate = () => {
+        const { id } = this.props
+        const { input, output, language } = this.state;
+        axios.post('http://localhost:4000/api/users/translate', { input, language })
+            .then(res => {
+                this.setState({ output: res.data.output.translations[0].translation });
+                this.increaseTranslationCount(id)
+                setTimeout(speak(output), 2000);
+            })
+            .catch(err => err)
+    }
+
+    render() {
         return (
             <>
-                <Navbar 
-                    onRouteChange={this.props.onRouteChange} 
+                <Navbar
+                    onRouteChange={this.props.onRouteChange}
                     onClearUser={this.props.onClearUser}
                 />
                 <div className="container mt-5 red-border">
                     <Display input={this.state.input} output={this.state.output} />
-                    <Controls 
-                        onLanguageSelect={this.onLanguageSelect} 
+                    <Controls
+                        onLanguageSelect={this.onLanguageSelect}
                         selectedLanguage={this.state.selectedLanguage}
                         toggleListen={this.toggleListen}
                         renderButton={this.renderButton}
@@ -125,6 +128,6 @@ class Home extends Component {
             </>
         )
     }
-} 
+}
 
 export default Home; 

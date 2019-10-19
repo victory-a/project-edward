@@ -7,17 +7,18 @@ const languageTranslator = new LanguageTranslatorV3({
 });
 
 async function translate(req, res) {
-    const { text, language, } = req.body;
+    const { input, language, } = req.body;
     const translateParams = {
-        text,
+        text: input,
         model_id: language
     };
     try {
         const result = await languageTranslator.translate(translateParams)
-        res.json(result.translations);
+        console.log('result', result)
+        res.json({success: true, message: 'translate successful', output: result});
     } catch (err) {
-        res.json(err);
+        res.json({success: false, message: 'translate failed', err});
     }
 }
 
-module.exports = translate;
+module.exports = translate;   
