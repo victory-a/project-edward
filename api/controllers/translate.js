@@ -14,7 +14,6 @@ async function translate(req, res) {
     };
     try {
         const result = await languageTranslator.translate(translateParams)
-        console.log('result', result)
         res.json({success: true, message: 'translate successful', output: result});
     } catch (err) {
         res.json({success: false, message: 'translate failed', err});

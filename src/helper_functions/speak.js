@@ -7,7 +7,6 @@ const speak = (textToBeRead) => {
     utterThis.pitch = 0.8;
     utterThis.rate = 0.9;
     synth.speak(utterThis)
-    // console.log('textToBeRead', textToBeRead)
 }
 
 export default speak;

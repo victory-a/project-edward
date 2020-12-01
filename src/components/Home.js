@@ -50,12 +50,10 @@ class Home extends Component {
     // handler for starting the voice recognition, outputs the final result to the input state
     // ensures the microphone stays on till te user manually stops recording
     dictate = () => {
-        // console.log('listening', this.state.isListening)
 
         if (this.state.isListening) {
             recognition.start();
             recognition.onend = () => {
-                // console.log('continue listening', this.state.isListening)
                 recognition.start();
             }
         } else {
